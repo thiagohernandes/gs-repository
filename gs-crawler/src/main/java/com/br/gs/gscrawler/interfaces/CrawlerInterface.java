@@ -6,6 +6,6 @@ import com.br.gs.gscrawler.domain.Produto;
 
 public interface CrawlerInterface {
 
-	public List<Produto> links(String URL);
+	public List<Produto> links();
 	
 }

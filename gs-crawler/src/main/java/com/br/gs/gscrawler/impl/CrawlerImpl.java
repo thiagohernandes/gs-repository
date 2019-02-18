@@ -1,23 +1,25 @@
-package com.br.gs.gscrawler.implementations;
+package com.br.gs.gscrawler.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
 import com.br.gs.gscrawler.conf.ConfCrawler;
 import com.br.gs.gscrawler.domain.Produto;
 import com.br.gs.gscrawler.interfaces.CrawlerInterface;
 import com.br.gs.gscrawler.util.Util;
 
+@Component
 public class CrawlerImpl implements CrawlerInterface {
 	
 	List<Produto> produtosList = new ArrayList<>();
 	ConfCrawler confCrawler = new ConfCrawler();
 	Util utilCrawler = new Util();
 	
-	public List<Produto> links(String URL) {
+	public List<Produto> links() {
 		try {
 			Elements produtosSite = utilCrawler.connectCountJsoup(confCrawler.SITE);
 			if(produtosSite.size() > 0) {

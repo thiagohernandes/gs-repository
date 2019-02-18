@@ -1,5 +1,9 @@
 package com.br.gs.gscrawler.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.ALWAYS)
 public class Produto {
 
 	private String descricao;
