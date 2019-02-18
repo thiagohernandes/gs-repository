@@ -8,13 +8,19 @@ import org.springframework.stereotype.Service;
 import com.br.gs.gscrawler.domain.Produto;
 import com.br.gs.gscrawler.impl.CrawlerImpl;
 
+/*
+ * Service Crawler
+ * @since: 18-02-2019
+ * @author: Thiago Hernandes de Souza
+ * */
+
 @Service
 public class CrawlerService {
 
 	@Autowired
 	private CrawlerImpl crawlerImpl;
 	
-	public List<Produto> getProdutos() {
-		return crawlerImpl.links();
+	public List<Produto> getProdutos(int pagInicial, int pagFinal) {
+		return crawlerImpl.links(pagInicial, pagFinal);
 	}
 }

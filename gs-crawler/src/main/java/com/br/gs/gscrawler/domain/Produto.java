@@ -3,6 +3,12 @@ package com.br.gs.gscrawler.domain;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+/*
+ * Produto domain/dto
+ * @since: 18-02-2019
+ * @author: Thiago Hernandes de Souza
+ * */
+
 @JsonInclude(Include.ALWAYS)
 public class Produto {
 
