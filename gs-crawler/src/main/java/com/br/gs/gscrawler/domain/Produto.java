@@ -1,5 +1,6 @@
 package com.br.gs.gscrawler.domain;
 
+import com.br.gs.gscrawler.enums.ProdutoTipo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -14,10 +15,12 @@ public class Produto {
 
 	private String descricao;
 	private String valor;
+	private ProdutoTipo tipo;
 	
-	public Produto(String descricao, String valor) {
+	public Produto(String descricao, String valor, ProdutoTipo tipo) {
 		this.descricao = descricao;
 		this.valor = valor;
+		this.tipo = tipo;
 	}
 
 	public String getDescricao() {
@@ -34,5 +37,13 @@ public class Produto {
 
 	public void setValor(String valor) {
 		this.valor = valor;
+	}
+
+	public ProdutoTipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(ProdutoTipo tipo) {
+		this.tipo = tipo;
 	}
 }

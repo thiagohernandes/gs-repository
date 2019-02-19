@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.br.gs.gscrawler.conf.ConfCrawler;
 import com.br.gs.gscrawler.domain.Produto;
+import com.br.gs.gscrawler.enums.ProdutoTipo;
 import com.br.gs.gscrawler.interfaces.CrawlerInterface;
 import com.br.gs.gscrawler.util.Util;
 
@@ -24,26 +25,35 @@ import com.br.gs.gscrawler.util.Util;
 public class CrawlerImpl implements CrawlerInterface {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(CrawlerImpl.class);
+	private static final String exceptionCrawler = "Site Crawler de consulta offline ou com problemas!";
+	private static final String termo = "partir";
+	private static final String classNomeProduto = "title";
+	private static final String classValorProduto = "price";
 	List<Produto> produtosList = new ArrayList<>();
 	ConfCrawler confCrawler = new ConfCrawler();
 	Util utilCrawler = new Util();
 	Elements produtosPaginacao;
 	
-	public List<Produto> links(int pagInicial, int pagFinal) {
+	public List<Produto> links(ProdutoTipo tipo, int pagina) {
 		try {
 			LOGGER.debug("*********** Gerando links ***********");
 			long tempInicio = System.currentTimeMillis();
-			int pageCount = pagInicial;
-			produtosPaginacao = new Elements();
 			produtosList = new ArrayList<>();
-			produtosPaginacao = utilCrawler.connectCountJsoup(confCrawler.PAGINACAO + pageCount);
-			while (produtosPaginacao.size() > 0 && pageCount <= pagFinal) {
-				for(Element produto : produtosPaginacao){
-					produtosList.add(new Produto(produto.getElementsByClass("title").text(),
-							new Util().customSplitCurrency(produto.getElementsByClass("price").text())));
+			produtosPaginacao = new Elements();			
+			produtosPaginacao = tipo.equals(ProdutoTipo.CELULAR) 
+								? utilCrawler.connectCountJsoup(confCrawler.PAGINACAO_CELULARES + pagina) :
+									utilCrawler.connectCountJsoup(confCrawler.PAGINACAO_NOTEBOOKS + pagina);
+			if (produtosPaginacao == null || (produtosPaginacao.size() == 0 && pagina == 1)) {
+				throw new NullPointerException(exceptionCrawler); 
+			}
+			for(Element produto : produtosPaginacao){
+				if (produto.getElementsByClass("price").text().contains(termo)) {
+					produtosList.add(new Produto(produto.getElementsByClass(classNomeProduto).text(),
+							utilCrawler.customSplitCurrency(produto.getElementsByClass(classValorProduto).text()), tipo));
+				} else {
+					produtosList.add(new Produto(produto.getElementsByClass(classNomeProduto).text(),
+							utilCrawler.customSplitCurrencyChange(produto.getElementsByClass(classValorProduto).text()), tipo));
 				}
-				pageCount++;
-				produtosPaginacao = utilCrawler.connectCountJsoup(confCrawler.PAGINACAO + pageCount);
 			}
 			long tempFinal = System.currentTimeMillis() - tempInicio;
 			LOGGER.debug("*********** Links gerados com sucesso em: " + tempFinal + " milisegundos ***********");

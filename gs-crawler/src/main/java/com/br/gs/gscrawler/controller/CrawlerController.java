@@ -24,8 +24,8 @@ public class CrawlerController {
 	@Autowired
 	CrawlerService crawlerService;
 	
-	@GetMapping(value="/{pag-inicial}/{pag-final}")
-	public List<Produto> getProdutos(@PathVariable("pag-inicial") int pagInicial, @PathVariable("pag-final") int pagFinal) {
-		return crawlerService.getProdutos(pagInicial, pagFinal);
+	@GetMapping(value="/{tipo}/{pagina}")
+	public List<Produto> getProdutos(@PathVariable("tipo") String  tipo, @PathVariable("pagina") int pagina) {
+		return crawlerService.getProdutos(tipo, pagina);
 	}
 }

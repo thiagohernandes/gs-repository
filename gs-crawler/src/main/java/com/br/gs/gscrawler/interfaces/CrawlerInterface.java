@@ -3,6 +3,7 @@ package com.br.gs.gscrawler.interfaces;
 import java.util.List;
 
 import com.br.gs.gscrawler.domain.Produto;
+import com.br.gs.gscrawler.enums.ProdutoTipo;
 
 /*
  * Interface Crawler
@@ -12,6 +13,6 @@ import com.br.gs.gscrawler.domain.Produto;
 
 public interface CrawlerInterface {
 
-	public List<Produto> links(int pagInicial, int pagFinal);
+	public List<Produto> links(ProdutoTipo tipo, int pagina);
 	
 }

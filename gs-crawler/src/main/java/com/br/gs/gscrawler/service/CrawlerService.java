@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.br.gs.gscrawler.domain.Produto;
+import com.br.gs.gscrawler.enums.ProdutoTipo;
 import com.br.gs.gscrawler.impl.CrawlerImpl;
 
 /*
@@ -20,7 +21,8 @@ public class CrawlerService {
 	@Autowired
 	private CrawlerImpl crawlerImpl;
 	
-	public List<Produto> getProdutos(int pagInicial, int pagFinal) {
-		return crawlerImpl.links(pagInicial, pagFinal);
+	public List<Produto> getProdutos(String tipo, int pagina) {
+		ProdutoTipo tipoProduto = tipo.equalsIgnoreCase("notebook") ? ProdutoTipo.NOTEBOOK : ProdutoTipo.CELULAR;
+		return crawlerImpl.links(tipoProduto, pagina);
 	}
 }
