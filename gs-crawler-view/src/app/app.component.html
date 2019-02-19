@@ -1,0 +1,12 @@
+<div class="container-fluid">
+  <div class="col">
+      <img width="100" alt="GS Ciência do Consumo" src="assets\images\gs.png">
+  </div>
+  <div *ngIf="loadingService" class="col" style="text-align: center; display: inline-block">
+      <img width="200" alt="GS Ciência do Consumo" src="assets\images\loading.gif">
+  </div>
+  <div class="col">
+      <router-outlet></router-outlet>
+  </div>
+</div>
+
