@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <label class="radio-inline">
+        <input type="radio" (click)="setTipoProduto('celular')" name="optradio" checked>Celulares
+      </label>
+      <label class="radio-inline" style="margin-left: 10px; margin-bottom: 25px">
+        <input type="radio" (click)="setTipoProduto('notebook')" name="optradio">Notebooks
+      </label>
+      <button [disabled]="paginacao > 0" style="margin-left: 20px; margin-bottom: 25px" (click)="nextPaginacao()" type="button" class="btn btn-primary">Crawler!</button>
+      <button style="margin-left: 20px; margin-bottom: 25px" (click)="postJSON()" type="button" class="btn btn-warning">Full JSON!</button>
+      <label style="margin-left: 20px; color: blue" *ngIf="jsonSuccess"> JSON criado com sucesso!</label>
+      <br/>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col">
+        <button (click)="fowardPaginacao()" [disabled]="listProdutos.length === 0 || paginacao <= 1" style="margin-left: 15px" type="button" class="btn btn-dark">Anterior</button>
+        <button (click)="nextPaginacao()" [disabled]="listProdutos.length < 30 || paginacao === 0" style="margin-left: 8px"type="button" class="btn btn-dark">Próxima</button>
+      </div>
+    </div>
+  <br/>
+  <div class="row" *ngIf="listProdutos.length > 0 else tplSemProduto">
+      <div class="col">
+        <table style="width: 70%" class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Descrição</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Tipo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listProdutos; let i = index">
+              <td>{{item.descricao}}</td>
+              <td style="text-align:right">{{item.valor}}</td>
+              <td>{{item.tipo}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+  <ng-template #tplSemProduto>
+    <div class="col">
+        <h3>Clique no botão "Crawler" para consulta</h3>
+    </div>
+  </ng-template>
+</div>
