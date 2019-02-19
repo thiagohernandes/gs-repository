@@ -4,6 +4,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import com.br.gs.gscrawler.enums.ProdutoTipo;
+
 /*
  * Util - Métodos genéricos a serem usados na aplicação
  * @since: 18-02-2019
@@ -12,10 +14,10 @@ import org.jsoup.select.Elements;
 
 public class Util {
 	
-	private static final String simboloMoeda = "R$ ";
-	private static final String termoQuebraMoeda = " ";
-	private static final String elementClass = "prd-new";
-	private static final String elementClassChange = "ofr-new";
+	private final String simboloMoeda = "R$ ";
+	private final String termoQuebraMoeda = " ";
+	private final String elementClass = "prd-new";
+	private final String elementClassChange = "ofr-new";
 	
 	public String customSplitCurrency(String valor) {
 		return simboloMoeda + valor.split(termoQuebraMoeda)[4];
@@ -36,5 +38,8 @@ public class Util {
 		
 	}
 	
+	public ProdutoTipo handleProdutoTipo(String tipo) {
+		return tipo.equalsIgnoreCase("notebook") ? ProdutoTipo.NOTEBOOK : ProdutoTipo.CELULAR;
+	}
 
 }
