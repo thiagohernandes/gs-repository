@@ -18,4 +18,10 @@ export class HomeService {
     return this.http.get<Produto[]>(URL);
   }
 
+  postJSON(tipo: string): Observable<void> {
+    this.utilService.updateLoading(true);
+    const URL = `${REST_API}${tipo}`;
+    return this.http.post<void>(URL, {});
+  }
+
 }

@@ -7,7 +7,10 @@
       <label class="radio-inline" style="margin-left: 10px; margin-bottom: 25px">
         <input type="radio" (click)="setTipoProduto('notebook')" name="optradio">Notebooks
       </label>
-      <button [disabled]="paginacao > 0" style="margin-left: 20px; margin-bottom: 25px" (click)="nextPaginacao()" type="button" class="btn btn-primary">Crawler!</button> <br/>
+      <button [disabled]="paginacao > 0" style="margin-left: 20px; margin-bottom: 25px" (click)="nextPaginacao()" type="button" class="btn btn-primary">Crawler!</button>
+      <button style="margin-left: 20px; margin-bottom: 25px" (click)="postJSON()" type="button" class="btn btn-warning">Full JSON!</button>
+      <label style="margin-left: 20px; color: blue" *ngIf="jsonSuccess"> JSON criado com sucesso!</label>
+      <br/>
     </div>
   </div>
   <div class="row">

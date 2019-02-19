@@ -38,5 +38,19 @@ public class CrawlerServiceTests {
     		 			    .andExpect(status().isOk()).andReturn();
 
      }
+    
+    @Test
+    public void celularJSON() throws Exception {
+     mvc.perform(MockMvcRequestBuilders.post("/api/crawler/celular").accept(MediaType.APPLICATION_JSON))
+    		 			    .andExpect(status().isOk()).andReturn();
+
+     }
+    
+    @Test
+    public void notebookJSON() throws Exception {
+     mvc.perform(MockMvcRequestBuilders.post("/api/crawler/notebook").accept(MediaType.APPLICATION_JSON))
+    		 			    .andExpect(status().isOk()).andReturn();
+
+     }
 
 }
