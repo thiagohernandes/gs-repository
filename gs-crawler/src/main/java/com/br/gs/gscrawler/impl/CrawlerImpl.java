@@ -69,6 +69,7 @@ public class CrawlerImpl implements CrawlerInterface {
 			int controlPage = 1;
 			int controlconnectCount = utilCrawler.connectCountJsoup(confCrawler.PAGINACAO_CELULARES + controlPage).size();
 			while(controlconnectCount > 0) {
+				LOGGER.debug("Item -> " + controlPage);
 				produtosPaginacao = tipo.equals(ProdutoTipo.CELULAR) 
 						? utilCrawler.connectCountJsoup(confCrawler.PAGINACAO_CELULARES + controlPage) :
 							utilCrawler.connectCountJsoup(confCrawler.PAGINACAO_NOTEBOOKS + controlPage);
@@ -86,7 +87,9 @@ public class CrawlerImpl implements CrawlerInterface {
 	}
 	
 	public List<Produto> produtosLoop(Elements produtosPaginacao, List<Produto> produtosList, ProdutoTipo tipo) {
+		int countItem = 1;
 		for(Element produto : produtosPaginacao){
+			LOGGER.debug("Item -> " + countItem);
 			if (produto.getElementsByClass("price").text().contains(termo)) {
 				produtosList.add(new Produto(produto.getElementsByClass(classNomeProduto).text(),
 						utilCrawler.customSplitCurrency(produto.getElementsByClass(classValorProduto).text()), tipo));
@@ -94,6 +97,7 @@ public class CrawlerImpl implements CrawlerInterface {
 				produtosList.add(new Produto(produto.getElementsByClass(classNomeProduto).text(),
 						utilCrawler.customSplitCurrencyChange(produto.getElementsByClass(classValorProduto).text()), tipo));
 			}
+			countItem++;
 		}
 		return produtosList;
 	}
@@ -111,5 +115,5 @@ public class CrawlerImpl implements CrawlerInterface {
 			LOGGER.error("*********** Erro no parse do JSON: " + e.getMessage() + "***********");
 		}
 	}
-
+	
 }

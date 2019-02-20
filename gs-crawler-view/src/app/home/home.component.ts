@@ -61,6 +61,7 @@ export class HomeComponent implements OnInit {
   }
 
   resetMessage() {
+    this.listProdutos = [];
     if (this.jsonSuccess) {
       this.jsonSuccess = false;
     }
