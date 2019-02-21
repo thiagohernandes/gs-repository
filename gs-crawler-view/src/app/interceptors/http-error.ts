@@ -19,6 +19,9 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
                     case 500:
                         console.error('Erro interno de servidor', err.status.toString());
                         break;
+                    case 0:
+                      console.error('Serviço fora', err.status.toString());
+                      break;
                 }
                 return throwError(err);
             })

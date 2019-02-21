@@ -23,7 +23,9 @@ import { HttperrorComponent } from './httperror/httperror.component';
     AppRoutes,
     HttpClientModule
   ],
-  providers: [ HomeService, UtilService],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorHandlerInterceptor, multi: true },
+     HomeService, UtilService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
